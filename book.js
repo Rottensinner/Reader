@@ -18,7 +18,9 @@ export function validateBook(value) {
     });
     return {id, title: c.title, meta: String(c.meta ?? ''), blocks};
   });
-  return {id: String(value.id || value.title), title: value.title, subtitle: String(value.subtitle ?? ''), chapters};
+  let cover;
+  if(value.cover){if(typeof value.cover.src!=='string'||!safeImageSource(value.cover.src))throw new Error('Niedozwolony adres okładki.');cover={src:value.cover.src,alt:String(value.cover.alt??value.title)};}
+  return {id: String(value.id || value.title), title: value.title, subtitle: String(value.subtitle ?? ''), ...(cover?{cover}:{}), chapters};
 }
 export function safeImageSource(src) {
   if (!src.trim() || src.includes('\\') || /[\u0000-\u0020]/.test(src)) return false;

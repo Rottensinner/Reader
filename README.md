@@ -23,7 +23,11 @@ Otwórz `http://localhost:8000`. Moduły ES wymagają serwera HTTP — nie otwie
 
 ## Rękopis i grafiki
 
-Startowa książka to **jawnie oznaczona demonstracja interfejsu**, nie rękopis powieści. Aktualna książka i wcześniejsze grafiki nie zostały dołączone ani opublikowane w tym publicznym repozytorium.
+Startowa książka to pełne rozdziały I–XIII „Popiołu nad Polską”, pobrane z zakładki „Rozdziały” dokumentu „Fabuła” 1 października 2026. Pierwszy ekran pokazuje istniejącą grafikę tytułową z zakładki „Fabuła”. Zachowano treść akapitów oraz trzy ilustracje osadzone w zakładce rozdziałów. Materiały znajdują się w `book.json` i `assets/`. Notatki redakcyjne, opisy frakcji, lokacji i postaci z innych zakładek nie zostały dodane do narracji.
+
+Przycisk „Zacznij czytać” otwiera rozdział I; „Kontynuuj czytanie” wraca do zapisanego miejsca. Z czytnika można wrócić do okładki. Własna książka zaimportowana wcześniej ma pierwszeństwo przed książką startową; aby zobaczyć wersję dołączoną, wczytaj `book.json` lub usuń dane strony.
+
+Wdrożenie na Cloudflare Workers: build command puste, deploy command `npx wrangler deploy`. Nazwa Workera: `reader`; data zgodności jest ustawiona w `wrangler.jsonc`.
 
 Przycisk **Wczytaj książkę** przyjmuje TXT lub JSON (do 20 MB). W TXT rozdziały zaczynaj osobną linią `Rozdział I`, `Rozdział 2` albo nagłówkiem Markdown `# Tytuł`. Puste linie oddzielają akapity. Pliki Word, PDF i EPUB nie są obsługiwane w tej wersji; tekst z Google Docs można wyeksportować jako TXT.
 
