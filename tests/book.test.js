@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseText,validateBook,safeImageSource,readingMinutes,demo} from '../book.js';
+test('TXT splits Polish chapter headings and joins wrapped paragraphs',()=>{const b=parseText('Rozdział I — Początek\r\nPierwsza linia\r\ndruga linia.\r\n\r\nNowy akapit.\r\nRozdział II\r\nDalej.','Książka');assert.equal(b.chapters.length,2);assert.equal(b.chapters[0].blocks[0].text,'Pierwsza linia druga linia.');assert.equal(b.chapters[0].blocks.length,2);});
+test('plain text and Markdown headings work',()=>{assert.equal(parseText('Sam tekst.').chapters[0].title,'Początek');assert.equal(parseText('# Początek\nTekst\n## Dalej\nTekst').chapters.length,2);});
+test('empty input and duplicate IDs are rejected',()=>{assert.throws(()=>parseText('   \n'));assert.throws(()=>validateBook({title:'X',chapters:[{id:'1',title:'A',blocks:[]},{id:'1',title:'B',blocks:[]}]}));});
+test('image sources reject executable schemes and protocol-relative URLs',()=>{for(const src of ['javascript:alert(1)','//evil.test/a.png','data:text/html,hi','file:///etc/passwd','https://example.test/ a'])assert.equal(safeImageSource(src),false);for(const src of ['assets/a.png','https://example.test/a.png','data:image/png;base64,aGVsbG8='])assert.equal(safeImageSource(src),true);});
+test('import strips unknown properties and rejects unknown block types',()=>{assert.throws(()=>validateBook({title:'X',chapters:[{title:'A',blocks:[{type:'html',text:'<script>'}]}]}));assert.equal(validateBook({title:'X',extra:1,chapters:[{title:'A',blocks:[]}]}).extra,undefined);});
+test('reading time counts prose, not image labels',()=>{assert.equal(readingMinutes({blocks:[{type:'paragraph',text:'słowo '.repeat(401)},{type:'image',alt:'a '.repeat(2000)}]}),3);assert.equal(demo.chapters.length,3);});

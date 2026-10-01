@@ -1,0 +1,17 @@
+{
+  "id": "popiol-nad-polska",
+  "title": "Popiół nad Polską",
+  "subtitle": "Część I",
+  "chapters": [
+    {
+      "id": "rozdzial-1",
+      "title": "Rozdział I",
+      "meta": "Kielce · Dzień 0",
+      "blocks": [
+        {"type": "notice", "text": "Szablon importu — zastąp ten blok i poniższy akapit treścią rękopisu."},
+        {"type": "paragraph", "text": "Tutaj wstaw pierwszy akapit książki."},
+        {"type": "image", "src": "assets/przystanek_1908.png", "alt": "Przystanek o 19:08", "caption": "Kielce · Dzień 0"}
+      ]
+    }
+  ]
+}
